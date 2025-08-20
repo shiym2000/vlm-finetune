@@ -1,0 +1,31 @@
+# qlora微调：使用zero2，学习率需要更大，优化器改为paged_adamw_8bit
+deepspeed --include localhost:0,1,2,5 --master_port 29501 src/train.py \
+    --data_type vqa \
+    --data_path /hdd/shiym/datasets_processed/MedM-VL/llava/tmp/finetune_wotext.json \
+    --image_dir /hdd/shiym/datasets/0_public/LLaVA/visual-instruction-tuning-images \
+    --tune_type_llm lora \
+    --tune_type_llm_lora_r 128 \
+    --tune_type_llm_lora_alpha 256 \
+    --tune_type_llm_lora_dropout 0.05 \
+    --tune_type_llm_lora_bias none \
+    --tune_type_encoder_image frozen \
+    --tune_type_connector_image full \
+    --deepspeed scripts/zero2.json \
+    --bf16 True \
+    --output_dir /hdd/shiym/work_dirs/vlm-finetune/custom/finetune_wotext_qlora \
+    --resume_from_checkpoint /hdd/shiym/work_dirs/vlm-finetune/custom/pretrain \
+    --dataloader_num_workers 8 \
+    --dataloader_pin_memory True \
+    --dataloader_persistent_workers True \
+    --num_train_epochs 1 \
+    --per_device_train_batch_size 4 \
+    --gradient_accumulation_steps 8 \
+    --learning_rate 2e-4 \
+    --weight_decay 0.0 \
+    --warmup_ratio 0.03 \
+    --lr_scheduler_type cosine \
+    --eval_strategy no \
+    --save_strategy no \
+    --optim paged_adamw_8bit \
+    --report_to tensorboard \
+    --logging_steps 1
