@@ -13,7 +13,7 @@ deepspeed --include localhost:0,1,2,3 --master_port 29501 src/train.py \
     --tune_type_llm frozen \
     --tune_type_encoder_image frozen \
     --tune_type_connector_image full \
-    --deepspeed scripts/zero3.json \
+    --deepspeed scripts/zero2.json \
     --bf16 True \
     --output_dir /hdd/shiym/work_dirs/vlm-finetune/custom/pretrain \
     --dataloader_num_workers 8 \

@@ -1,7 +1,7 @@
 import json
 from tqdm import tqdm
 
-model_path = "/home/shiym/work_dirs/vlm-finetune/swift/ctrate-qwenvl-32-364-vqa/v0-20250820-131153/checkpoint-7225"
+model_path = "/home/shiym/work_dirs/vlm-finetune/swift/ctrate-qwenvl-32-364-vqa/v0-20250821-212121/checkpoint-10838"
 input_path = f"{model_path}/eval/output.jsonl"
 output_path = f"{model_path}/eval/output_format.json"
 

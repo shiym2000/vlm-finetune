@@ -26,16 +26,16 @@ swift sft \
     --output_dir $MODEL_PATH \
     --warmup_ratio 0.03 \
     --dataloader_num_workers 8 \
-    --deepspeed zero3
-    # --resume_from_checkpoint $MODEL_PATH/v0-20250820-131153/checkpoint-7225
+    --deepspeed zero2
+    # --resume_from_checkpoint $MODEL_PATH/v0-20250821-212121/checkpoint-10838
 
 
 CUDA_VISIBLE_DEVICES=0 \
 swift infer \
-    --model $MODEL_PATH/v0-20250820-131153/checkpoint-7225 \
+    --model $MODEL_PATH/v0-20250821-212121/checkpoint-10838 \
     --max_new_tokens 512 \
     --temperature 0 \
     --val_dataset /hdd/shiym/datasets_processed/vlm-finetune/swift/ctrate/valid_rg.json \
-    --result_path $MODEL_PATH/v0-20250820-131153/checkpoint-7225/eval/output.jsonl \
+    --result_path $MODEL_PATH/v0-20250821-212121/checkpoint-10838/eval/output.jsonl \
     --infer_backend pt \
     --max_batch_size 64

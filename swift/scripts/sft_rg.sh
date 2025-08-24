@@ -26,7 +26,7 @@ swift sft \
     --output_dir $MODEL_PATH \
     --warmup_ratio 0.03 \
     --dataloader_num_workers 8 \
-    --deepspeed zero3
+    --deepspeed zero2
 
 
 # full vit + lora llm
@@ -59,20 +59,20 @@ swift sft \
 #     --output_dir $MODEL_PATH \
 #     --warmup_ratio 0.03 \
 #     --dataloader_num_workers 8 \
-#     --deepspeed zero3
+#     --deepspeed zero2
 
 
 # CUDA_VISIBLE_DEVICES=0 \
 # swift export \
-#     --adapters $MODEL_PATH/v0-20250819-141917/checkpoint-491 \
+#     --adapters $MODEL_PATH/v1-20250821-173647/checkpoint-737 \
 #     --merge_lora true
 
 CUDA_VISIBLE_DEVICES=0 \
 swift infer \
-    --model $MODEL_PATH/v0-20250819-141917/checkpoint-491 \
+    --model $MODEL_PATH/v1-20250821-173647/checkpoint-737 \
     --max_new_tokens 512 \
     --temperature 0 \
     --val_dataset /hdd/shiym/datasets_processed/vlm-finetune/swift/ctrate/valid_rg.json \
-    --result_path $MODEL_PATH/v0-20250819-141917/checkpoint-491/eval/output.jsonl \
+    --result_path $MODEL_PATH/v1-20250821-173647/checkpoint-737/eval/output.jsonl \
     --infer_backend pt \
     --max_batch_size 64

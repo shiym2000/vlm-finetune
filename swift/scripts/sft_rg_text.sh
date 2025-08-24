@@ -22,7 +22,7 @@ swift sft \
     --output_dir $MODEL_PATH \
     --warmup_ratio 0.03 \
     --dataloader_num_workers 8 \
-    --deepspeed zero3
+    --deepspeed zero2
 
 
 CUDA_VISIBLE_DEVICES=0 \
