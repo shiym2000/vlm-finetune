@@ -7,7 +7,7 @@ GitHub link: [ms-swift](https://github.com/modelscope/ms-swift)
 # https://swift.readthedocs.io/en/latest/GetStarted/SWIFT-installation.html
 git clone https://github.com/modelscope/ms-swift.git
 cd ms-swift
-conda create -n swift python==3.10
+conda create -n swift python=3.10
 conda activate swift
 pip install -e '.[all]'
 

@@ -7,7 +7,7 @@ GitHub link: [trl](https://github.com/huggingface/trl)
 # https://huggingface.co/docs/trl/installation
 git clone https://github.com/huggingface/trl.git
 cd trl
-conda create -n trl python==3.10
+conda create -n trl python=3.10
 conda activate trl
 pip install -e .
 
