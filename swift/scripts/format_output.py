@@ -1,9 +1,15 @@
+import argparse
 import json
+import os
 from tqdm import tqdm
 
-model_path = "/home/shiym/work_dirs/vlm-finetune/swift/ctrate-qwenvl-32-364-vqa/last"
-input_path = f"{model_path}/eval/output.jsonl"
-output_path = f"{model_path}/eval/output_format.json"
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--model_path", type=str, default="/home/shiym/work_dirs/vlm-finetune/swift/ctrate-qwenvl-32-364-vqa/last/eval")
+args = parser.parse_args()
+
+input_path = os.path.join(args.model_path, "output.jsonl")
+output_path = os.path.join(args.model_path, "output_format.json")
 
 # Read the JSONL file and convert it to a list of dictionaries
 with open(input_path, "r") as f:

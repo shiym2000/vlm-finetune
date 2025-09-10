@@ -40,7 +40,7 @@ accelerate launch \
 
 
 CUDA_VISIBLE_DEVICES=0 \
-python sym/infer_multiturn.py \
+python /home/shiym/projects/vlm-finetune/trl/src/infer_multiturn.py \
     --model $MODEL_PATH \
     --attn_implementation flash_attention_2 \
     --torch_dtype bfloat16 \
