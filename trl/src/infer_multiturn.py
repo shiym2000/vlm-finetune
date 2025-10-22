@@ -11,9 +11,15 @@ from utils import format_data, collate_func
 
 
 def infer(args):
+    # Load processor
+    processor = AutoProcessor.from_pretrained(
+        args.model,
+        trust_remote_code=True,
+    )
+
+    # Load model
     torch_dtype = torch.float16 if args.torch_dtype == "float16" else (torch.bfloat16 if args.torch_dtype == "bfloat16" else torch.float32)
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
-    
     model = AutoModelForImageTextToText.from_pretrained(
         args.model,
         torch_dtype=torch_dtype,
@@ -21,16 +27,15 @@ def infer(args):
         trust_remote_code=True,
         attn_implementation=args.attn_implementation,
     )
-    processor = AutoProcessor.from_pretrained(
-        args.model,
-        trust_remote_code=True,
-    )
-    streamer = TextStreamer(processor.tokenizer, skip_prompt=True, skip_special_tokens=True)
 
+    # Load data
     with open(args.dataset_name, "r", encoding="utf-8") as f:
         data = json.load(f)
 
+    # Inference
     output_list = []
+    streamer = TextStreamer(processor.tokenizer, skip_prompt=True, skip_special_tokens=True)
+
     for example in tqdm(data):
         messages = []
         example_tmp = {
@@ -79,6 +84,7 @@ def infer(args):
         # if len(output_list) > 10:
         #     break
 
+    # Save results
     os.makedirs(os.path.dirname(args.result_path), exist_ok=True)
     with open(args.result_path, "w") as f:
         json.dump(output_list, f, indent=4, ensure_ascii=False)

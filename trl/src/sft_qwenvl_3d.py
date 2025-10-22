@@ -41,11 +41,15 @@ if __name__ == "__main__":
     ################
     # Model & Processor
     ################
-    torch_dtype = (
-        model_args.torch_dtype if model_args.torch_dtype in ["auto", None] else getattr(torch, model_args.torch_dtype)
+
+    # Load processor
+    processor = AutoProcessor.from_pretrained(
+        model_args.model_name_or_path,
+        trust_remote_code=model_args.trust_remote_code,
     )
 
     # Model initialization
+    torch_dtype = model_args.torch_dtype if model_args.torch_dtype in ["auto", None] else getattr(torch, model_args.torch_dtype)
     quantization_config = get_quantization_config(model_args)
     model_kwargs = dict(
         revision=model_args.model_revision,
@@ -65,12 +69,6 @@ if __name__ == "__main__":
         model.gradient_checkpointing_enable()
         model.config.use_reentrant = False
         model.enable_input_require_grads()
-
-    # Load processor
-    processor = AutoProcessor.from_pretrained(
-        model_args.model_name_or_path,
-        trust_remote_code=model_args.trust_remote_code,
-    )
 
     ################
     # Dataset
