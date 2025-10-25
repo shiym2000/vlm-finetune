@@ -1,5 +1,5 @@
-nproc_per_node=8
 MODEL_PATH="/hdd/shiym/work_dirs/vlm-finetune/swift/ctrate-qwenvl-32-364-rg"
+nproc_per_node=8
 
 NPROC_PER_NODE=$nproc_per_node \
 CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 \
